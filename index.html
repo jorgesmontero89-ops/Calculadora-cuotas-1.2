@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora: ¿Conviene cuotas o contado?</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+    }
+
+    button {
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #resultado {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>¿Conviene cuotas?</h2>
+
+  <input type="number" id="contado" placeholder="Precio contado">
+  <input type="number" id="cuotasTotal" placeholder="Total en cuotas">
+  <input type="number" id="cantidadCuotas" placeholder="Cantidad de cuotas">
+
+  <button onclick="calcular()">Calcular</button>
+
+  <div id="resultado"></div>
+<p style="margin-top:20px; font-size:14px;">
+Esta herramienta te ayuda a comparar si conviene pagar en cuotas o al contado. 
+En general, pagar en cuotas puede implicar intereses ocultos, especialmente en contextos de inflación. 
+Usá esta calculadora para tomar mejores decisiones con tu dinero.
+</p>
+<hr>
+
+<p style="font-size:14px;">
+🔧 Herramientas recomendadas para mejorar tus finanzas:
+<br><br>
+- Próximamente recursos para ahorrar y gestionar mejor tu dinero
+</p>
+</div>
+
+<script>
+function calcular() {
+  let contado = parseFloat(document.getElementById("contado").value);
+  let cuotasTotal = parseFloat(document.getElementById("cuotasTotal").value);
+  let cantidad = parseFloat(document.getElementById("cantidadCuotas").value);
+
+  if (!contado || !cuotasTotal || !cantidad) {
+    document.getElementById("resultado").innerText = "Completá todos los campos";
+    return;
+  }
+
+  let diferencia = cuotasTotal - contado;
+  let interes = ((diferencia / contado) * 100).toFixed(2);
+  let cuotaMensual = (cuotasTotal / cantidad).toFixed(2);
+
+  let mensaje = "";
+
+if (diferencia > 0) {
+  mensaje = `Estás pagando $${diferencia.toFixed(2)} de más. Conviene pagar al contado.`;
+} else {
+  mensaje = `El costo es similar o menor. Pagar en cuotas puede ser conveniente.`;
+}
+
+  document.getElementById("resultado").innerHTML = `
+    Diferencia: $${diferencia.toFixed(2)} <br>
+    Interés: ${interes}% <br>
+    Cuota mensual: $${cuotaMensual} <br><br>
+    👉 ${mensaje}
+  `;
+}
+</script>
+
+</body>
+</html>
